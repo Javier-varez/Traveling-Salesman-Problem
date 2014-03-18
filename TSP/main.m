@@ -49,19 +49,18 @@ int main(int argc, const char * argv[])
             currentRow = nil;
         }
         
-        /*NSArray *matrix = @[@[@(-0), @(-1), @(-1.5), @(-1.5), @(-1)],
-                            @[@(-1), @(-0), @(-1), @(-1.5), @(-1.5)],
-                            @[@(-1.5), @(-1), @(-0), @(-1), @(-1.5)],
-                            @[@(-1.5), @(-1.5), @(-1), @(-0), @(-1)],
-                            @[@(-1), @(-1.5), @(-1.5), @(-1), @(-0)]];*/
+        /*NSArray *matrix = @[@[@(-0), @(-1), @(-0), @(-0)],
+                              @[@(-0), @(-0), @(-1), @(-0)],
+                              @[@(-0), @(-0), @(-0), @(-1)],
+                              @[@(-1), @(-0), @(-0), @(-0)]];*/
         
         /*NSArray *matrix = @[@[@(-0), @(-2.9), @(-3.2), @(-3.6), @(-2.9), @(-3.2), @(-3.6)],
-                            @[@(-3.4), @(-0), @(-0.3), @(-0.7), @(-1.7), @(-2.1), @(-2.4)],
-                            @[@(-3.1), @(-1.3), @(-0), @(-0.3), @(-0.7), @(-1.7), @(-2.1)],
-                            @[@(-2.7), @(-1), @(-1.4), @(-0), @(-1), @(-1.4), @(-1.7)],
-                            @[@(-3.4), @(-1.7), @(-2.1), @(-2.4), @(-0), @(-0.3), @(-0.7)],
-                            @[@(-3.1), @(-1.3), @(-1.7), @(-2.1), @(-1), @(-0), @(-0.3)],
-                            @[@(-2.7), @(-1), @(-1.4), @(-1.7), @(-1), @(-1.4), @(-0)]];*/
+                              @[@(-3.4), @(-0), @(-0.3), @(-0.7), @(-1.7), @(-2.1), @(-2.4)],
+                              @[@(-3.1), @(-1.3), @(-0), @(-0.3), @(-0.7), @(-1.7), @(-2.1)],
+                              @[@(-2.7), @(-1), @(-1.4), @(-0), @(-1), @(-1.4), @(-1.7)],
+                              @[@(-3.4), @(-1.7), @(-2.1), @(-2.4), @(-0), @(-0.3), @(-0.7)],
+                              @[@(-3.1), @(-1.3), @(-1.7), @(-2.1), @(-1), @(-0), @(-0.3)],
+                              @[@(-2.7), @(-1), @(-1.4), @(-1.7), @(-1), @(-1.4), @(-0)]];*/
         
         //Initialize solutions mutable dictionary
         NSMutableArray *solutions = [[NSMutableArray alloc] init];
@@ -131,23 +130,23 @@ void calculateSolutions(NSArray* costMatrix, NSMutableArray *solutions, NSMutabl
                     if ([solutions lastObject]) {
                         NSDictionary *lastSolutionFound = [solutions lastObject];
                         
-                        if (totalCostOfArray > [lastSolutionFound[kCost] doubleValue]) {
+                        if (totalCostOfArray > -[lastSolutionFound[kCost] doubleValue]) {
                             [solutions removeAllObjects];
                             //Add new solution
-                            NSDictionary *newSolution = @{kCost: @(totalCostOfArray),
+                            NSDictionary *newSolution = @{kCost: @(-totalCostOfArray),
                                                           kPath: temporaryNodesVisited};
                             [solutions addObject:newSolution];
                         }
-                        else if (totalCostOfArray == [lastSolutionFound[kCost] doubleValue]) {
+                        else if (totalCostOfArray == -[lastSolutionFound[kCost] doubleValue]) {
                             //Add new solution
-                            NSDictionary *newSolution = @{kCost: @(totalCostOfArray),
+                            NSDictionary *newSolution = @{kCost: @(-totalCostOfArray),
                                                           kPath: temporaryNodesVisited};
                             [solutions addObject:newSolution];
                         }
                     }
                     else {
                         //Add new solution
-                        NSDictionary *newSolution = @{kCost: @(totalCostOfArray),
+                        NSDictionary *newSolution = @{kCost: @(-totalCostOfArray),
                                                       kPath: temporaryNodesVisited};
                         [solutions addObject:newSolution];
                     }
